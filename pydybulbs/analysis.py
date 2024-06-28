@@ -2,7 +2,7 @@ from typing import List, Union
 import numpy as np
 
 
-def displacement(P: Union[List[float],np.ndarray]=[0,0,1], G: np.ndarray, dGdx: np.ndarray):
+def displacement(P: Union[List[float],np.ndarray], G: np.ndarray, dGdx: np.ndarray):
     """
     Computes displacement and displacement gradients.
 
@@ -30,9 +30,10 @@ def displacement(P: Union[List[float],np.ndarray]=[0,0,1], G: np.ndarray, dGdx: 
     return [u,dudx]
 
 
-def strain_spherical(u: np.ndarray, dudx: np.ndarray, coordinates: Union[List[float],np.ndarray]):
+def strain_spherical(dudx: np.ndarray, u: np.ndarray, coordinates: Union[List[float],np.ndarray]):
     """
     Computes strains from displacement gradients.
+    Strains are given in geotechnical sign convention (compression positive).
 
     Args:
         u (np.ndarray): Displacements.
@@ -56,12 +57,13 @@ def strain_spherical(u: np.ndarray, dudx: np.ndarray, coordinates: Union[List[fl
     # Switch to geotechnical notation
     e = -e
     # Return results
-    return [u,e,s]
+    return e
 
 
-def strains_cartesian(dudx: np.ndarray):
+def strain_cartesian(dudx: np.ndarray):
     """
     Computes strains from displacement gradients.
+    Strains are given in geotechnical sign convention (compression positive).
 
     Args:
         dudx (np.ndarray): Displacement gradients.
