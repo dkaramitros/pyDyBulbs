@@ -1,0 +1,10 @@
+# Python files
+__pycache__/
+
+# Sphinx documentation
+docs/build/
+
+# Build package
+dist
+*.egg-info
+.pypirc
