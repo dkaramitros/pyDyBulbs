@@ -1,7 +1,7 @@
 from typing import List, Union
 import numpy as np
 
-def stokes_spherical(coordinates: Union[List[float],np.ndarray]=[1,1,1], shear: float=1, poisson: float=0.3, omega_s: float=1):
+def stokes_spherical(coordinates: Union[List[float],np.ndarray], shear: float=1, poisson: float=0.3, omega_s: float=1):
     """
     Computes Green's functions for the Stokes problem in spherical coordinates.
 
@@ -68,7 +68,7 @@ def stokes_spherical(coordinates: Union[List[float],np.ndarray]=[1,1,1], shear: 
     return [G,dGdx]
 
 
-def stokes_cartesian(coordinates: Union[List[float],np.ndarray]=[1,1,1], shear: float=1, poisson: float=0.3, omega_s: float=1):
+def stokes_cartesian(coordinates: Union[List[float],np.ndarray], shear: float=1, poisson: float=0.3, omega_s: float=1):
     """
     Computes Green's functions for the Stokes problem in cartesian coordinates.
 
