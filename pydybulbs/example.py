@@ -3,18 +3,18 @@ from stokes import *
 from analysis import *
 
 # Load
-load = [0, 0, 1000]
+load = [0, 0, 2000]
 # Receiver
 R = 5
 f = 15*np.pi/180
 t = 0
 coord_sph = [R, f, t]
-coord_cart = R * [np.sin(f), 0, np.cos(f)]
+coord_cart = [R*np.sin(f), 0, R*np.cos(f)]
 # Soil
 Vsel = 150
 dens = 2
 nu = 0.30
-ksi = 0.02
+ksi = 0
 Gel = Vsel**2 * dens
 Gvisc = Gel * (1+2*1j*ksi)
 Vs = Vsel/np.sqrt(Gvisc/Gel)
