@@ -1,6 +1,5 @@
 import numpy as np
 from stokes import *
-from analysis import *
 
 # Load
 load = [0, 0, 2000]
