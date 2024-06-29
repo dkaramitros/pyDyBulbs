@@ -14,9 +14,9 @@ A relevant publication is currently under review in the _ASCE Journal of Geotech
 
 A series of functions to support the computations is provided in `stokes.py`. Details on their arguments and outputs are provided in docstrings.
 
-The use of these functions for practical applications is demonstrated in `example.py`.
+The use of these functions for practical applications is demonstrated in `example.py` (Python script) and `example.ipynb` (Jupyter notebook).
 
-Typical plots can be produced using `plot.py`.
+Typical plots can be produced using `plot.py` (Python script) and `plot.ipynb` (Jupyter notebook).
 
 ## Contributors
 
