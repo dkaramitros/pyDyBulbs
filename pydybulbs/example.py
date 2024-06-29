@@ -22,14 +22,37 @@ Vs = Vsel/np.sqrt(Gvisc/Gel)
 omega = 3
 omega_s = omega*R/Vs
 
+# Spherical coordinates
 [G,dGdx] = stokes_spherical(coordinates=coord_sph, shear=Gvisc, poisson=nu, omega_s=omega_s)
 [u,dudx] = displacement(P=load, G=G, dGdx=dGdx)
 e = strain_spherical(dudx=dudx, u=u, coordinates=coord_sph)
 s = stress(strain=e, shear=Gvisc, poisson=nu)
 
+print("\nAnalysis in spherical coordinates:")
+print("Displacements:")
+for i,x in enumerate(u):
+    print(f"  {i+1}: Amplitude: {abs(x):.5f}, Phase angle: {np.degrees(np.angle(x)):.3f} degrees")
+print("Strains:")
+for i,x in enumerate(e):
+    print(f"  {i+1}: Amplitude: {100*abs(x):.5f} %, Phase angle: {np.degrees(np.angle(x)):.3f} degrees")
+print("Stresses:")
+for i,x in enumerate(s):
+    print(f"  {i+1}: Amplitude: {abs(x):.5f}, Phase angle: {np.degrees(np.angle(x)):.3f} degrees")
+
+# Cartesian coordinates
 [G,dGdx] = stokes_cartesian(coordinates=coord_cart, shear=Gvisc, poisson=nu, omega_s=omega_s)
 [u,dudx] = displacement(P=load, G=G, dGdx=dGdx)
 e = strain_cartesian(dudx=dudx)
 s = stress(strain=e, shear=Gvisc, poisson=nu)
 
-print('DONE')
+print("\nAnalysis in cartesian coordinates:")
+print("\nDisplacements:")
+print("Displacements:")
+for i,x in enumerate(u):
+    print(f"  {i+1}: Amplitude: {abs(x):.5f}, Phase angle: {np.degrees(np.angle(x)):.3f} degrees")
+print("Strains:")
+for i,x in enumerate(e):
+    print(f"  {i+1}: Amplitude: {100*abs(x):.5f} %, Phase angle: {np.degrees(np.angle(x)):.3f} degrees")
+print("Stresses:")
+for i,x in enumerate(s):
+    print(f"  {i+1}: Amplitude: {abs(x):.5f}, Phase angle: {np.degrees(np.angle(x)):.3f} degrees")
