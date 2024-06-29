@@ -144,7 +144,7 @@ def stokes(omega_s: float=1, poisson: float=0.3, radius: float=1):
     return [Y, X, dYdR, dXdR]
 
 
-def displacement(P: Union[List[float], np.ndarray], G: np.ndarray, dGdx: np.ndarray):
+def displacement(dP: Union[List[float], np.ndarray], G: np.ndarray, dGdx: np.ndarray):
     """
     Computes displacement and displacement gradients (both for spherical and cartesian coordinates).
 
@@ -152,13 +152,13 @@ def displacement(P: Union[List[float], np.ndarray], G: np.ndarray, dGdx: np.ndar
         G (np.ndarray): Green's function for the frequency domain response in direction i
             due to a unit load in direction j (defined in cartesian coordinates x,y,z).
         dGdx (np.ndarray): Derivative of Green's functions with respect to x[k].
-        P (Union[List[float], np.ndarray]): Load vector in cartesian coordinates x,y,z.
+        dP (Union[List[float], np.ndarray]): Load vector 2*P in cartesian coordinates x,y,z.
 
     Returns:
         tuple: displacements vector (3x1), displacement gradients (3x3).
     """
     # Ensure P is a NumPy array
-    P = np.array(P, dtype='complex_')
+    P = np.array(dP, dtype='complex_')
     # Displacement Vector (3x1) - Using G[i,j]*P[j]
     u = np.dot(G, P)
     # Displacement Gradient (3x3) - Using dG[i,j,k]*P[j]

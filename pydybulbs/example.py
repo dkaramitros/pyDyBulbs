@@ -5,7 +5,7 @@ from stokes import *
 load = [0, 0, 2000]
 # Receiver
 R = 5
-f = 15*np.pi/180
+f = 15  *np.pi/180
 t = 0
 coord_sph = [R, f, t]
 coord_cart = [R*np.sin(f), 0, R*np.cos(f)]
@@ -23,7 +23,7 @@ omega_s = omega*R/Vs
 
 # Spherical coordinates
 [G,dGdx] = stokes_spherical(coordinates=coord_sph, shear=Gvisc, poisson=nu, omega_s=omega_s)
-[u,dudx] = displacement(P=load, G=G, dGdx=dGdx)
+[u,dudx] = displacement(dP=load, G=G, dGdx=dGdx)
 e = strain_spherical(dudx=dudx, u=u, coordinates=coord_sph)
 s = stress(strain=e, shear=Gvisc, poisson=nu)
 
@@ -40,7 +40,7 @@ for i,x in enumerate(s):
 
 # Cartesian coordinates
 [G,dGdx] = stokes_cartesian(coordinates=coord_cart, shear=Gvisc, poisson=nu, omega_s=omega_s)
-[u,dudx] = displacement(P=load, G=G, dGdx=dGdx)
+[u,dudx] = displacement(dP=load, G=G, dGdx=dGdx)
 e = strain_cartesian(dudx=dudx)
 s = stress(strain=e, shear=Gvisc, poisson=nu)
 

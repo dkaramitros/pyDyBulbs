@@ -38,7 +38,7 @@ for i,omega_s in enumerate(omega_s_var):
     for i,coord_sph in enumerate(coord_sph_var):
         # Compute
         [G,dGdx] = stokes_spherical(coordinates=coord_sph, shear=Gvisc, poisson=nu, omega_s=omega_s)
-        [u,dudx] = displacement(P=load, G=G, dGdx=dGdx)
+        [u,dudx] = displacement(dP=load, G=G, dGdx=dGdx)
         e = strain_spherical(dudx=dudx, u=u, coordinates=coord_sph)
         s = stress(strain=e, shear=Gvisc, poisson=nu)
         # Append
@@ -58,7 +58,7 @@ sigma_r = [[np.abs(s[i][0]) for i in range(len(f_deg_var))] for s in s_results]
 fig,ax = plt.subplots(subplot_kw={"projection":"polar"})
 for i, omega in enumerate(omega_var):
     ax.plot(f_rad_var, np.abs(sigma_r[i]), label=rf'$\Omega_{{s}} = {omega}$')
-ax.set_title(r"$\frac{{|\sigma_R| R^2}}{{2P}}$", fontsize = 16)
+ax.set_title(r"$\frac{{|\sigma_R| R^2}}{{2 P}}$", fontsize = 16)
 ax.set_thetamax(90)
 ax.set_theta_zero_location("S")
 ax.legend()
