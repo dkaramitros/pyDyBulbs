@@ -12,7 +12,7 @@ A relevant publication is currently under review in the _ASCE Journal of Geotech
 
 ## Instructions
 
-A series of functions to support the computations is provided in `stokes.py`.
+A series of functions to support the computations is provided in `stokes.py`. Details on their arguments and outputs are provided in docstrings.
 
 The use of these functions is demonstrated in `example.py`.
 
