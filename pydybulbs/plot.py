@@ -17,7 +17,7 @@ nu = 0.30
 ksi = 0.02
 Gel = Vsel**2 * dens
 Gvisc = Gel * (1 + 2 * 1j * ksi)
-Vs = Vsel/np.sqrt(Gvisc/Gel)
+Vs = Vsel * np.sqrt(Gvisc/Gel)
 # Frequency
 omega_var = np.array([0, 1, 2, 5, 10, 20])  # Note the variation
 omega_s_var = [omega*R/Vs for omega in omega_var]
@@ -53,13 +53,13 @@ for i,omega_s in enumerate(omega_s_var):
 
 # Select result
 sigma_r = [[np.abs(s[i][0]) for i in range(len(f_deg_var))] for s in s_results]
+
 # Plot
 fig,ax = plt.subplots(subplot_kw={"projection":"polar"})
 for i, omega in enumerate(omega_var):
     ax.plot(f_rad_var, np.abs(sigma_r[i]), label=rf'$\Omega_{{s}} = {omega}$')
+ax.set_title(r"$\frac{{|\sigma_R| R^2}}{{2P}}$", fontsize = 16)
 ax.set_thetamax(90)
 ax.set_theta_zero_location("S")
-ax.set_title(r"$\frac{{|\sigma_R| R^2}}{{2P}}$")
 ax.legend()
-ax.grid()
 plt.show()

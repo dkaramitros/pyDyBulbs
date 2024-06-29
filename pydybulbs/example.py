@@ -16,7 +16,7 @@ nu = 0.30
 ksi = 0
 Gel = Vsel**2 * dens
 Gvisc = Gel * (1+2*1j*ksi)
-Vs = Vsel/np.sqrt(Gvisc/Gel)
+Vs = Vsel * np.sqrt(Gvisc/Gel)
 # Frequency
 omega = 3
 omega_s = omega*R/Vs
