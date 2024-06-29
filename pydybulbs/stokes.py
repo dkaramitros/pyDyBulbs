@@ -179,9 +179,14 @@ def strain_spherical(dudx: np.ndarray, u: np.ndarray, coordinates: Union[List[fl
     e = np.zeros(6, dtype='complex_')
     e[0] = dudx[0, 0]  # R
     e[1] = u[0] / R + dudx[1, 1] / R  # phi
-    e[2] = u[0] / R + (1 / np.tan(phi)) * u[1] / R + (1 / np.sin(phi)) * dudx[2, 2] / R  # theta
-    e[3] = (1 / np.sin(phi)) * dudx[1, 2] / R + dudx[2, 1] / R - (1 / np.tan(phi)) * u[2] / R  # phi-theta
-    e[4] = (1 / np.sin(phi)) * dudx[0, 2] / R + dudx[2, 0] / R - u[2] / R  # R-theta
+    if phi == 0:  # Take care of singularities
+        e[2] = u[0] / R # theta
+        e[3] = dudx[2, 1] / R  # phi-theta
+        e[4] = dudx[2, 0] / R - u[2] / R  # R-theta
+    else:
+        e[2] = u[0] / R + (1 / np.tan(phi)) * u[1] / R + (1 / np.sin(phi)) * dudx[2, 2] / R  # theta
+        e[3] = (1 / np.sin(phi)) * dudx[1, 2] / R + dudx[2, 1] / R - (1 / np.tan(phi)) * u[2] / R  # phi-theta
+        e[4] = (1 / np.sin(phi)) * dudx[0, 2] / R + dudx[2, 0] / R - u[2] / R  # R-theta
     e[5] = dudx[0, 1] / R + dudx[1, 0] - u[1] / R  # R-phi
     # Switch to geotechnical notation
     e = -e
