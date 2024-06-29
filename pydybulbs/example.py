@@ -46,7 +46,6 @@ e = strain_cartesian(dudx=dudx)
 s = stress(strain=e, shear=Gvisc, poisson=nu)
 
 print("\nAnalysis in cartesian coordinates:")
-print("\nDisplacements:")
 print("Displacements:")
 for i,x in enumerate(u):
     print(f"  {i+1}: Amplitude: {abs(x):.5f}, Phase angle: {np.degrees(np.angle(x)):.3f} degrees")
