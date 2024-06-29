@@ -6,7 +6,7 @@ Dynamic Stress Bulbs
 
 ## Information
 
-This Python package allows to compute _dynamic stress bulbs for harmonic vertical point loads in homogenous soil_.
+This Python package allows to compute and plot _dynamic stress bulbs for harmonic vertical point loads in homogenous soil_.
 
 A relevant publication is currently under review in the _ASCE Journal of Geotechnical and Geoenvironmental Engineering_.
 
@@ -14,7 +14,9 @@ A relevant publication is currently under review in the _ASCE Journal of Geotech
 
 A series of functions to support the computations is provided in `stokes.py`. Details on their arguments and outputs are provided in docstrings.
 
-The use of these functions is demonstrated in `example.py`.
+The use of these functions for practical applications is demonstrated in `example.py`.
+
+Typical plots can be produced using `plot.py`.
 
 ## Contributors
 
