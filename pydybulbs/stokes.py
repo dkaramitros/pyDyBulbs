@@ -131,10 +131,16 @@ def stokes(omega_s: float=1, poisson: float=0.3, radius: float=1):
     a = np.sqrt((1 - 2 * n) / (2 * (1 - n)))
     Wp = a * Ws
     # Normalised components and derivatives (Eqns 4.6 to 4.9)
-    Y = np.exp(-1j * Wp) * a**2 * (1j / Wp + 1 / Wp**2) + np.exp(-1j * Ws) * (1 - 1j / Ws - 1. / Ws**2)
-    X = np.exp(-1j * Wp) * a**2 * (1 - 3 * 1j / Wp - 3. / Wp**2) - np.exp(-1j * Ws) * (1 - 3 * 1j / Ws - 3. / Ws**2)
-    dYdR = (1 / R) * (np.exp(-1j * Wp) * a**2 * (1 - 2 * 1j / Wp - 2 / Wp**2) - np.exp(-1j * Ws) * (1 + 1j * Ws - 2 * 1j / Ws - 2 / Ws**2))
-    dXdR = (1 / R) * (np.exp(-1j * Ws) * (3 + 1j * Ws - 6 * 1j / Ws - 6 / Ws**2) - np.exp(-1j * Wp) * a**2 * (3 + 1j * Wp - 6 * 1j / Wp - 6 / Wp**2))
+    if Ws == 0:
+        Y = (2 * (1 - 2 * n) + 1) / (4 * (1 - n))
+        X = 1 / (4 * (1 - n))
+        dYdR = 0
+        dXdR = 0
+    else:
+        Y = np.exp(-1j * Wp) * a**2 * (1j / Wp + 1 / Wp**2) + np.exp(-1j * Ws) * (1 - 1j / Ws - 1. / Ws**2)
+        X = np.exp(-1j * Wp) * a**2 * (1 - 3 * 1j / Wp - 3. / Wp**2) - np.exp(-1j * Ws) * (1 - 3 * 1j / Ws - 3. / Ws**2)
+        dYdR = (1 / R) * (np.exp(-1j * Wp) * a**2 * (1 - 2 * 1j / Wp - 2 / Wp**2) - np.exp(-1j * Ws) * (1 + 1j * Ws - 2 * 1j / Ws - 2 / Ws**2))
+        dXdR = (1 / R) * (np.exp(-1j * Ws) * (3 + 1j * Ws - 6 * 1j / Ws - 6 / Ws**2) - np.exp(-1j * Wp) * a**2 * (3 + 1j * Wp - 6 * 1j / Wp - 6 / Wp**2))
     return [Y, X, dYdR, dXdR]
 
 
@@ -179,14 +185,9 @@ def strain_spherical(dudx: np.ndarray, u: np.ndarray, coordinates: Union[List[fl
     e = np.zeros(6, dtype='complex_')
     e[0] = dudx[0, 0]  # R
     e[1] = u[0] / R + dudx[1, 1] / R  # phi
-    if phi == 0:  # Take care of singularities
-        e[2] = u[0] / R # theta
-        e[3] = dudx[2, 1] / R  # phi-theta
-        e[4] = dudx[2, 0] / R - u[2] / R  # R-theta
-    else:
-        e[2] = u[0] / R + (1 / np.tan(phi)) * u[1] / R + (1 / np.sin(phi)) * dudx[2, 2] / R  # theta
-        e[3] = (1 / np.sin(phi)) * dudx[1, 2] / R + dudx[2, 1] / R - (1 / np.tan(phi)) * u[2] / R  # phi-theta
-        e[4] = (1 / np.sin(phi)) * dudx[0, 2] / R + dudx[2, 0] / R - u[2] / R  # R-theta
+    e[2] = u[0] / R + (1 / np.tan(phi)) * u[1] / R + (1 / np.sin(phi)) * dudx[2, 2] / R  # theta
+    e[3] = (1 / np.sin(phi)) * dudx[1, 2] / R + dudx[2, 1] / R - (1 / np.tan(phi)) * u[2] / R  # phi-theta
+    e[4] = (1 / np.sin(phi)) * dudx[0, 2] / R + dudx[2, 0] / R - u[2] / R  # R-theta
     e[5] = dudx[0, 1] / R + dudx[1, 0] - u[1] / R  # R-phi
     # Switch to geotechnical notation
     e = -e
